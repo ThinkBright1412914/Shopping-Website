@@ -1,0 +1,104 @@
+﻿@model Ecommerce.ViewModel.OrderViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    decimal total = 0;
+}
+
+<div class="container-fluid pt-5">
+
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <div class="mb-4">
+                <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>User : </label>
+                        @Model.User.Email
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>First Name : </label>
+                        @Model.BillingAddress.FirstName
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name : </label>
+                        @Model.BillingAddress.LastName
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>E-mail : </label>
+                        @Model.BillingAddress.Email
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobile No : </label>
+                        @Model.BillingAddress.Phoneno
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line 1 : </label>
+                        @Model.BillingAddress.Address1
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line 2 : </label>
+                        @Model.BillingAddress.Address2
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Country : </label>
+                        @Model.BillingAddress.Country
+
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>City : </label>
+                        @Model.BillingAddress.City
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>State : </label>
+                        @Model.BillingAddress.State
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>ZIP Code : </label>
+                        @Model.BillingAddress.Zip
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Status : </label>
+                        @Model.Status
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-medium mb-3">Products</h5>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <div class="d-flex justify-content-between">
+                            <p>@item.Product.Name</p>
+                            <p>$@item.Product.Price.ToString("F2")</p>
+                            <p>@item.Quantity</p>
+                        </div>
+                        total += item.Product.Price * item.Quantity;
+                    }
+                </div>
+
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Total</h5>
+                        <h5 class="font-weight-bold">$@total.ToString("F2")</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
